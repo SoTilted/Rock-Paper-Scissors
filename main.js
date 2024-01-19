@@ -1,67 +1,69 @@
-let options=["rock","paper","scissors"]; //computer options
-
+let computerCounter=0; let playerCounter=0;
+let playerContainer=document.querySelector('.player-container');
+let computerContainer=document.querySelector('.computer-container');
+let computerResult=document.querySelector('.computer-results p');
+let playerResult=document.querySelector('.player-results p');
+let finalResult=document.querySelector('.final-results p')
+const buttons = document.getElementsByTagName("button");
 function getComputerChoice(){ //choosing a random choice from the list of options
-    return options[Math.floor(Math.random()*3)];
+    return Math.floor(Math.random()*3);
 }
-console.log(getComputerChoice())
 
-function getPlayerChoice(){ //asking player for to choose an option and checking if he put a viable one.
-    let playerchoice = prompt("Choose between rock, paper and scissors.").toLowerCase();
-    while(playerchoice!=options[0] && playerchoice!=options[1] && playerchoice!=options[2]){
-        console.log("Wrong input, please choose between the given options.");
-        playerchoice = prompt("Choose between rock, paper and scissors.").toLowerCase();
+function checkRoundWinner(computerChoice,playerChoice){
+    finalResult.textContent=''
+    winner = (3 + playerChoice - computerChoice) % 3;
+    if (winner===1){
+        playerCounter++;
+        playerResult.textContent=`Player: ${playerCounter}`;
+        finalResult.textContent='Player wins this round!';
     }
-    return playerchoice;
-}
-
-function playRound(computerSelection,playerSelection){ //it checks with multiple ifs who won.
-    if (playerSelection==computerSelection){// if its a draw, it calls itself to play again.
-        console.log('Draw! Play again!');
-        return playRound(getComputerChoice(),getPlayerChoice());
+    else if (winner===2){
+        computerCounter++;
+        computerResult.textContent=`Computer: ${computerCounter}`;
+        finalResult.textContent='Computer wins this round!';
     }
     else{
-        if (playerSelection=="rock" && computerSelection=="scissors") {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}`) 
-            return 'player'; 
-        }
-        else if (playerSelection=="rock" && computerSelection=="paper") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}`)
-            return 'computer'; 
-        }
-        else if (playerSelection=="paper" && computerSelection=="rock") {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}`) 
-            return 'player'; 
-        }
-        else if (playerSelection=="papper" && computerSelection=="scissors") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}`)
-            return 'computer'; 
-        }
-        else if (playerSelection=="scissors" && computerSelection=="paper") {
-            console.log(`You Win! ${playerSelection} beats ${computerSelection}`) 
-            return 'player';
-        }
-        else if (playerSelection=="scissors" && computerSelection=="rock") {
-            console.log(`You Lose! ${computerSelection} beats ${playerSelection}`)
-            return 'computer';
-        }
+        finalResult.textContent='It is a draw! Please play again.';
     }
+
+}
+    
+function checkWinner(){
+    if (playerCounter===5){
+        finalResult.textContent='Player wins the game!';
+        playerCounter=0;
+        computerCounter=0;
+        playerResult.textContent=`Player: ${playerCounter}`;
+        computerResult.textContent=`Computer: ${computerCounter}`;
+        playerContainer.style.backgroundImage="url(Images/usada_pekora.jpg)"
+        computerContainer.style.backgroundImage="url(Images/karen.jpg)"
+    }
+    else if (computerCounter===5){
+        finalResult.textContent='Computer wins the game!';
+        playerCounter=0;
+        computerCounter=0;
+        playerResult.textContent=`Player: ${playerCounter}`;
+        computerResult.textContent=`Computer: ${computerCounter}`;
+        playerContainer.style.backgroundImage="url(Images/usada_pekora.jpg)"
+        computerContainer.style.backgroundImage="url(Images/karen.jpg)"
+    }
+
+}    
+
+const buttonPressed = (e) => {
+    playerChoice=parseInt(e.target.id);
+    computerChoice=getComputerChoice();
+    playerContainer.style.backgroundImage=`url(Images/${playerChoice}.jpg)`
+    computerContainer.style.backgroundImage=`url(Images/${computerChoice}.jpg)`
+    checkRoundWinner(computerChoice,playerChoice);
+    checkWinner();
 }
 
-function game(){// counts points and the one with 3 games wins
-    let playercounter=0;
-    let computercounter=0;
-    let currwinner='';
-    while (playercounter!=3 && computercounter!=3){
-        currwinner=playRound(getComputerChoice(),getPlayerChoice());
-        if (currwinner == "player"){
-            playercounter++;
-        }
-        else if(currwinner=="computer"){
-            computercounter++;
-        }
-    }
-    let winner=(playercounter>computercounter) ? "Player Won!":"Computer Won!";
-    return winner; 
-}
 
-console.log(game())
+  for (let button of buttons) {
+    button.addEventListener("click", buttonPressed);
+    
+  }
+
+
+

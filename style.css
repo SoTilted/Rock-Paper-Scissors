@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+}
+
+.main-container , .results-container, .player-container, .computer-container{   
+    display: flex;
+    height: 50vh;
+    width: 100%;
+}
+
+.player-container , .computer-container {
+    transform: scaleX(-1);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    
+}
+
+.player-container {
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    background-image: url("Images/usada_pekora.jpg");
+    border-left:solid 10px;
+    border-color: antiquewhite;;
+}
+.computer-container {
+    background-image: url("Images/karen.jpg");
+    border-right:solid 10px;
+    border-color: antiquewhite;
+}
+
+button {
+    transform: scaleX(-1);
+    padding: 4px 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 22px;
+    background-color: chocolate;
+    border-radius: 8px;
+}
+.rock , .paper {
+    width: 129.6px;
+}
+
+
+.results-container{
+    
+    font-size: 32px;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: antiquewhite;
+}
+
+.player-results, .computer-results {
+    padding: 0 20%;
+}
