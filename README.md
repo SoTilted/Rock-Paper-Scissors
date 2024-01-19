@@ -1,5 +1,4 @@
 # Rock-Paper-Scissors
-Made a simple rock-paper-scissors game played with no visuals for the Odin Project.
+A simple rock-paper-scissors game played vs the computer for the Odin Project.
 
-# TODO
-Make it pretty with an interface etc etc.
+Live site: https://sotilted.github.io/Rock-Paper-Scissors/
